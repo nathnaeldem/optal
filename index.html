@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTAP - The Future of Connection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212; /* Darker, more premium background */
+            --bg-card: rgba(28, 28, 28, 0.6);
+            --accent-glow: rgba(255, 121, 63, 0.4); /* Orange Glow */
+            --accent: #FF793F; /* Vibrant Orange */
+            --accent-dark: #F0592A;
+            --text-primary: #F8F9FA;
+            --text-secondary: #A0AEC0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 60px rgba(255, 121, 63, 0.2);
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--accent-dark), var(--accent));
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 121, 63, 0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 121, 63, 0.6);
+        }
+        
+        .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            color: var(--accent);
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(38, 38, 38, 0.8);
+            border-color: var(--accent);
+        }
+
+        .sticky-nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .section-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 120px; /* Taller curve */
+        }
+        .section-divider .shape-fill {
+            fill: var(--bg-dark);
+        }
+
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        .floating-card {
+            animation: subtle-float 7s ease-in-out infinite;
+        }
+        
+        @keyframes subtle-sink {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(10px) rotate(-3deg); }
+        }
+        .sinking-card {
+             animation: subtle-sink 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+        }
+        .whatsapp-pulse {
+            animation: pulse 2s infinite;
+        }
+
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.6, 0.01, 0.05, 0.95), transform 1s cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero-split-image {
+            filter: grayscale(80%) contrast(1.1) brightness(0.8);
+            transition: filter 0.5s ease;
+        }
+
+        .form-input {
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-glow);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-50 w-full sticky-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-3xl font-bold tracking-tighter text-white">OPTAP</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="open-design-modal-button glass-button hidden sm:inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full text-white">
+                        Free Design
+                    </a>
+                    <a href="#" class="open-modal-button cta-button inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full text-white">
+                        Get Your OPTAP &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative pt-24 pb-40 sm:pt-32 sm:pb-48 overflow-hidden">
+             <div class="absolute inset-0 z-0" style="background-image: linear-gradient(to bottom, transparent, rgba(18,18,18,0.8)), radial-gradient(circle at 1px 1px, rgba(255, 121, 63, 0.1) 1px, transparent 0); background-size: 100% 100%, 30px 30px;"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+            <div class="relative container mx-auto px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white leading-tight drop-shadow-lg">
+                    Paper Dies. <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Connections Don’t.</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300">
+                    Your first impression deserves better than paper.
+                </p>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+                    <!-- Left: Crumpled Card -->
+                    <div class="p-4">
+                         <img src="./2.png" alt="Crumpled, faded paper business card" class="rounded-2xl w-full sinking-card hero-split-image" />
+                    </div>
+                    <!-- Right: Sleek OPTAP Card -->
+                    <div class="p-4">
+                         <img src="./1.png" alt="Sleek, glossy NFC OPTAP card" class="rounded-2xl w-full floating-card glow-effect" />
+                    </div>
+                </div>
+
+                <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" class="open-design-modal-button glass-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Get a FREE Design
+                    </a>
+                    <a href="#" class="open-modal-button cta-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Upgrade Your Impression &rarr;
+                    </a>
+                </div>
+            </div>
+            <div class="section-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- SECTION 1 – The Pain & The Promise -->
+        <section class="py-24 sm:py-32 relative fade-in-up">
+             <div class="absolute inset-0 z-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255, 121, 63, 0.07) 1px, transparent 0); background-size: 30px 30px;"></div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white">The Old Way is a Dead End.</h2>
+                    <p class="mt-4 text-lg text-gray-400">Your first impression is too important to leave to chance. It's time to choose the future of connection.</p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative">
+                    <!-- Vertical Divider -->
+                    <div class="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 h-full w-px bg-gradient-to-b from-transparent via-orange-500/30 to-transparent"></div>
+
+                    <!-- Column 1: Without OPTAP -->
+                    <div class="p-8 rounded-2xl border border-gray-800">
+                        <h3 class="text-center text-2xl font-bold text-gray-500">Without OPTAP</h3>
+                        <div class="mt-8 space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">Dead on Arrival</h4>
+                                    <p class="text-gray-400 mt-1">88% of paper cards are thrown away in less than a week. Your investment ends in the trash.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center">
+                                     <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">Static & Outdated</h4>
+                                    <p class="text-gray-400 mt-1">Change your number or title? Every card you've handed out is now incorrect.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center">
+                                     <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">Zero Insight</h4>
+                                    <p class="text-gray-400 mt-1">You have no idea who saved your details or if your connection led to anything.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Column 2: With OPTAP -->
+                    <div class="p-8 rounded-2xl border border-orange-500/30 bg-gradient-to-b from-orange-500/5 to-transparent">
+                         <h3 class="text-center text-2xl font-bold text-white">With <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">OPTAP</span></h3>
+                         <div class="mt-8 space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">A Living Connection</h4>
+                                    <p class="text-gray-400 mt-1">Your profile is a dynamic hub. Every tap shares your latest, most relevant information.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.182-3.182m0-4.991v4.99" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">Always Up-to-Date</h4>
+                                    <p class="text-gray-400 mt-1">Update your profile anytime, anywhere. Every card you've shared updates instantly.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center">
+                                     <svg class="w-5 h-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-semibold text-white">Actionable Intelligence</h4>
+                                    <p class="text-gray-400 mt-1">See how many people tap your card, view your profile, and engage with your links.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 – The Solution -->
+        <section class="py-20 fade-in-up">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">Meet <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">OPTAP.</span> The Last Card You'll Ever Need.</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-400">One card, infinite possibilities. Smart, sleek, and sustainable networking.</p>
+                </div>
+                
+                <div class="mt-16 bg-black rounded-2xl shadow-2xl overflow-hidden aspect-video">
+                    <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://placehold.co/1920x1080/0B0F19/FF793F?text=OPTAP+in+Action">
+                        <!-- Add a real video source here e.g. <source src="path/to/your/video.mp4" type="video/mp4"> -->
+                    </video>
+                </div>
+
+                <div class="mt-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="glass-card p-6 text-center flex flex-col items-center">
+                        <svg class="w-12 h-12 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8.7V5.3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.4"/><path d="m22 12-4.1 4.1a2.1 2.1 0 0 1-3-3L19 9"/><path d="m14 13 1.5 1.5"/><path d="m22 12-4.1 4.1a2.1 2.1 0 0 1-3-3L19 9"/></svg>
+                        <h3 class="text-xl font-bold text-white">Instant Share</h3>
+                        <p class="mt-2 text-gray-400">One tap shares your entire profile—contact info, socials, websites, payment apps, and more.</p>
+                    </div>
+                    <div class="glass-card p-6 text-center flex flex-col items-center">
+                        <svg class="w-12 h-12 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"/><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M2 12h20"/><path d="M12 2a15 15 0 1 0 0 20 15 15 0 0 0 0-20Z"/></svg>
+                        <h3 class="text-xl font-bold text-white">Universally Compatible</h3>
+                        <p class="mt-2 text-gray-400">No apps, no friction. Works instantly on any modern smartphone, iOS or Android.</p>
+                    </div>
+                    <div class="glass-card p-6 text-center flex flex-col items-center">
+                        <svg class="w-12 h-12 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0-10-10"/><path d="M12 15a5.1 5.1 0 0 0 5-5"/><path d="m12 8 3 3-3 3"/><path d="M22 12a10 10 0 0 0-10-10"/><path d="m12 9-3-3 3-3"/></svg>
+                        <h3 class="text-xl font-bold text-white">Dynamic Profile</h3>
+                        <p class="mt-2 text-gray-400">Changed your number or title? Update your profile anytime, and the changes are live instantly.</p>
+                    </div>
+                </div>
+
+                <div class="mt-20 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" class="open-design-modal-button glass-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Get a FREE Design
+                    </a>
+                    <a href="#" class="open-modal-button cta-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Order Your OPTAP &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3 – The Vision -->
+        <section class="relative py-24 sm:py-32 fade-in-up">
+            <div class="absolute inset-0">
+                <img class="w-full h-full object-cover" src="https://placehold.co/1920x1080/0B0F19/FFFFFF?text=Aspirational+Team+Image" alt="Diverse group of modern professionals collaborating">
+                <div class="absolute inset-0 bg-black/80"></div>
+            </div>
+            <div class="relative max-w-4xl mx-auto px-6 lg:px-8 text-center text-white">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight">For The Ones Who Build The Future.</h2>
+                <blockquote class="mt-12">
+                    <p class="text-4xl md:text-6xl font-extrabold tracking-tighter leading-tight drop-shadow-lg">
+                        “One card. One tap. <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Infinite reach.</span>”
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- SECTION 4 – How It Works -->
+        <section class="py-20 bg-black fade-in-up">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">Three Seconds to a Better Connection.</h2>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative">
+                    <!-- Connecting line -->
+                    <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 -translate-y-1/2">
+                       <svg width="100%" height="2"><line x1="0" y1="1" x2="100%" y2="1" stroke-width="2" stroke="rgba(255, 121, 63,0.2)" stroke-dasharray="10 10"/></svg>
+                    </div>
+                    <!-- Step 1 -->
+                    <div class="relative glass-card p-8 flex flex-col items-center">
+                        <div class="flex items-center justify-center h-24 w-24 rounded-full bg-orange-500/20 text-orange-300 mx-auto border border-orange-500/30">
+                            <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M15 15h2"/></svg>
+                        </div>
+                        <h3 class="mt-6 text-2xl font-semibold text-white">1. Tap Your Card</h3>
+                        <p class="mt-2 text-gray-400">Tap your OPTAP card on any modern smartphone to initiate the connection.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative glass-card p-8 flex flex-col items-center">
+                        <div class="flex items-center justify-center h-24 w-24 rounded-full bg-orange-500/20 text-orange-300 mx-auto border border-orange-500/30">
+                            <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2.5"/><path d="m19 18-3-3m0 3 3-3"/><path d="M12 8h-4"/><path d="M12 12H8"/><path d="M9 16H5"/></svg>
+                        </div>
+                        <h3 class="mt-6 text-2xl font-semibold text-white">2. Share Your Profile</h3>
+                        <p class="mt-2 text-gray-400">A link to your customizable profile appears instantly. No apps needed.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative glass-card p-8 flex flex-col items-center">
+                        <div class="flex items-center justify-center h-24 w-24 rounded-full bg-orange-500/20 text-orange-300 mx-auto border border-orange-500/30">
+                            <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="mt-6 text-2xl font-semibold text-white">3. Grow Your Network</h3>
+                        <p class="mt-2 text-gray-400">They save your contact card, and you've made a lasting impression.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 – Environmental Impact -->
+        <section class="py-24 bg-black fade-in-up">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">Leave a Mark, Not a Footprint.</h2>
+                    <p class="mt-4 text-lg text-gray-400">Choosing OPTAP is more than a smart business decision—it’s a commitment to a healthier planet. See the impact of switching from paper.</p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Stat Card 1: The Waste -->
+                    <div class="glass-card p-8 text-center flex flex-col items-center border border-gray-800">
+                        <svg class="w-12 h-12 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.067-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">7+ Billion Cards</h3>
+                        <p class="mt-2 text-gray-400">Printed and thrown away annually, contributing to landfill waste.</p>
+                    </div>
+                    <!-- Stat Card 2: The Forest -->
+                     <div class="glass-card p-8 text-center flex flex-col items-center border border-gray-800">
+                        <svg class="w-12 h-12 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M18.38 4.992a7.5 7.5 0 00-12.76 6.036c0 .65.07 1.286.206 1.903 1.256 4.35 4.333 7.03 7.174 7.03s5.918-2.68 7.174-7.03c.136-.617.206-1.253.206-1.903a7.5 7.5 0 00-2-5.028zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd" />
+                           <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">500,000 Trees</h3>
+                        <p class="mt-2 text-gray-400">The approximate number of trees cut down each year just for business cards.</p>
+                    </div>
+                    <!-- Stat Card 3: The Solution -->
+                    <div class="glass-card p-8 text-center flex flex-col items-center border border-green-500/50 bg-green-500/5">
+                        <svg class="w-12 h-12 mb-4 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.182-3.182m0-4.991v4.99" />
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">One OPTAP Card</h3>
+                        <p class="mt-2 text-gray-400">Replaces thousands of paper cards over its lifetime. A single, sustainable choice.</p>
+                    </div>
+                </div>
+                 <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" class="open-design-modal-button glass-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Get a FREE Design
+                    </a>
+                    <a href="#" class="open-modal-button cta-button inline-flex items-center justify-center px-10 py-5 border border-transparent text-xl font-bold rounded-full text-white w-full sm:w-auto">
+                        Order Your OPTAP &rarr;
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 – Testimonials -->
+        <section class="py-20 fade-in-up">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white">Don't Take Our Word For It.</h2>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8">
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://placehold.co/100x100/1E40AF/FFFFFF?text=AM" alt="Alex M.">
+                            <div class="ml-4">
+                                <div class="text-lg font-semibold text-white">Alex M.</div>
+                                <div class="text-gray-400">Freelance Designer</div>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-gray-300">“OPTAP is a legitimate game-changer. The 'wow' factor is real. I updated my portfolio link right before a meeting and the client was blown away. It’s the ultimate conversation starter.”</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://placehold.co/100x100/065F46/FFFFFF?text=SK" alt="Sarah K.">
+                            <div class="ml-4">
+                                <div class="text-lg font-semibold text-white">Sarah K.</div>
+                                <div class="text-gray-400">Real Estate Agent</div>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-gray-300">“I used to carry three different business cards. Now, it's just my OPTAP. It has my listings, my Calendly, and my social media. It saves me time, money, and makes me look tech-savvy.”</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://placehold.co/100x100/991B1B/FFFFFF?text=MT" alt="Mark T.">
+                            <div class="ml-4">
+                                <div class="text-lg font-semibold text-white">Mark T.</div>
+                                <div class="text-gray-400">Tech Founder</div>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-gray-300">“We equipped our entire sales team with OPTAP. It aligns perfectly with our innovative company image. It’s professional, practical, and frankly, just really cool. ROI was immediate.”</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 – Final CTA -->
+        <section id="final-cta" class="py-20 bg-gradient-to-t from-orange-900/30 to-transparent fade-in-up">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tighter text-white">Stop Handing Out Cards. <br/>Start Creating Opportunities.</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-300">The future of networking is one tap away. Are you in?</p>
+                <div class="mt-10">
+                    <a href="#" class="open-modal-button cta-button inline-flex items-center justify-center px-12 py-6 border border-transparent text-2xl font-bold rounded-full text-white">
+                        Get Your OPTAP Now &rarr;
+                    </a>
+                </div>
+                 <div class="mt-8 flex justify-center items-center space-x-6 text-sm text-gray-400">
+                    <span>✓ 100% Satisfaction Guarantee</span>
+                    <span>✓ No App Required</span>
+                    <span>✓ Instant Setup</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black/50 border-t border-white/10">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="text-center md:text-left">
+                    <p class="text-lg font-bold text-white">OPTAP by Optal Communications</p>
+                    <p class="mt-1 text-gray-400">Tap. Connect. Grow.</p>
+                </div>
+                <div class="mt-8 md:mt-0 flex justify-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Contact</a>
+                    <a href="#" class="text-gray-400 hover:text-white">FAQ</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+                 <div class="flex justify-center space-x-4 items-center" aria-label="Payment methods">
+                    <p class="text-sm text-gray-500 mr-4">Secure Payments:</p>
+                    <svg class="h-8 w-auto text-gray-400" fill="currentColor" viewBox="0 0 50 16"><path d="M47.2 1.6H2.8C1.2 1.6 0 2.9 0 4.4v7.1c0 1.6 1.2 2.9 2.8 2.9h44.4c1.6 0 2.8-1.3 2.8-2.9V4.4c0-1.5-1.2-2.8-2.8-2.8zM41.6 10.9h-5.6V5h5.6v5.9zM30.4 10.9h-5.6V5h5.6v5.9zM22.4 5v5.9h-2.8l-4.2-5.9h3.3l2.7 4.2v-4.2h1zM9.6 10.9H4V5h5.6c1.6 0 2.8 1.3 2.8 2.9C12.4 9.6 11.2 10.9 9.6 10.9z"/></svg>
+                    <svg class="h-6 w-auto text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M11.28 2.91L7.2 15.63h3.55l1-3.76h3.45l.62 3.76h3.58L15.3 2.91h-4.02m-.34 7.5l1.6-6.02 1.58 6.02h-3.18z"/></svg>
+                </div>
+                 <p class="mt-8 md:mt-0 text-center text-base text-gray-500">&copy; 2025 OPTAP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pricing Modal -->
+    <div id="pricing-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300 overflow-y-auto">
+        <div class="glass-card w-full max-w-4xl rounded-2xl p-8 relative transform transition-transform duration-300 scale-95 my-auto" id="modal-content">
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-10">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white">Choose Your Upgrade</h2>
+                <p class="text-gray-400 mt-2">Select the plan that best fits your networking needs.</p>
+            </div>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Personal Plan -->
+                <div class="glass-card p-6 border border-gray-700 rounded-xl flex flex-col">
+                    <div class="flex-grow">
+                        <svg class="w-10 h-10 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                        <h3 class="text-2xl font-bold text-white mt-4">Personal</h3>
+                        <p class="text-gray-400 mt-2">For individuals who want to stand out and make every connection count.</p>
+                        <ul class="text-left space-y-3 mt-6 text-gray-300">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Your Own OPTAP Card</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Unlimited Taps & Shares</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Fully Customizable Profile</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 cta-button w-full text-center inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full text-white">Get Started</a>
+                </div>
+                <!-- Corporate Plan -->
+                <div class="glass-card p-6 border border-orange-500/50 rounded-xl flex flex-col bg-orange-500/5">
+                     <div class="flex-grow">
+                        <svg class="w-10 h-10 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18h16.5M5.25 6H9m-3.75 3v11.25m6.75-11.25h3.75m-3.75 3h3.75m-3.75 3h3.75m-3.75 3h3.75M17.25 21v-2.25a2.25 2.25 0 00-2.25-2.25H12.75a2.25 2.25 0 00-2.25 2.25V21m4.5 0a2.25 2.25 0 002.25-2.25H15a2.25 2.25 0 002.25 2.25m4.5 0V19.5a2.25 2.25 0 00-2.25-2.25H15a2.25 2.25 0 00-2.25 2.25V21m0 0h6.75" /></svg>
+                        <h3 class="text-2xl font-bold text-white mt-4">Corporate</h3>
+                        <p class="text-gray-400 mt-2">For teams and organizations ready to network smarter and manage their brand identity.</p>
+                        <ul class="text-left space-y-3 mt-6 text-gray-300">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>All Personal Features +</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Centralized Team Dashboard</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Advanced Analytics & ROI Tracking</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 cta-button w-full text-center inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full text-white">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Design Request Modal -->
+    <div id="design-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300 overflow-y-auto">
+        <div id="design-modal-content" class="glass-card w-full max-w-lg rounded-2xl p-8 relative transform transition-transform duration-300 scale-95 my-auto">
+            <button id="close-design-modal-button" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-10">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white">Claim Your FREE Design</h2>
+                <p class="text-gray-400 mt-2">Let our experts design a stunning card that matches your brand.</p>
+            </div>
+
+            <div class="my-6 text-center bg-gray-900/50 rounded-lg p-4">
+                <p class="text-lg text-gray-400">Normal Value: <span class="line-through">3,500 ETB</span></p>
+                <p class="text-4xl font-bold text-green-400">FREE Today</p>
+            </div>
+
+            <form class="space-y-4" action="#">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" name="name" id="name" class="form-input w-full rounded-md p-2" placeholder="e.g. Abebe Bikila" required>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Phone Number</label>
+                    <input type="tel" name="phone" id="phone" class="form-input w-full rounded-md p-2" placeholder="+251 91 123 4567" required>
+                </div>
+                <div>
+                    <label for="telegram" class="block text-sm font-medium text-gray-300 mb-1">Telegram Handle</label>
+                    <input type="text" name="telegram" id="telegram" class="form-input w-full rounded-md p-2" placeholder="@yourhandle" required>
+                </div>
+                <p class="text-xs text-center text-gray-500 pt-2">We'll send your custom design file directly to your Telegram.</p>
+                <button type="submit" class="cta-button w-full text-center inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-full text-white">
+                    Claim My Free Design
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Sticky WhatsApp Button -->
+    <a href="https://wa.me/1234567890" target="_blank" class="fixed bottom-8 right-8 z-40 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg whatsapp-pulse transform transition-transform hover:scale-110">
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fade-in animation observer
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.fade-in-up').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Modal logic
+            const pricingModal = document.getElementById('pricing-modal');
+            const pricingModalContent = document.getElementById('modal-content');
+            const openModalButtons = document.querySelectorAll('.open-modal-button');
+            const closeModalButton = document.getElementById('close-modal-button');
+
+            const openPricingModal = () => {
+                pricingModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                setTimeout(() => {
+                    pricingModal.style.opacity = '1';
+                    pricingModalContent.style.transform = 'scale(1)';
+                }, 10);
+            };
+
+            const closePricingModal = () => {
+                pricingModal.style.opacity = '0';
+                pricingModalContent.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    pricingModal.classList.add('hidden');
+                     if (document.getElementById('design-modal').classList.contains('hidden')) {
+                        document.body.style.overflow = '';
+                    }
+                }, 300);
+            };
+
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openPricingModal();
+                });
+            });
+
+            closeModalButton.addEventListener('click', closePricingModal);
+            pricingModal.addEventListener('click', (e) => {
+                if (e.target === pricingModal) {
+                    closePricingModal();
+                }
+            });
+
+            // Design Modal logic
+            const designModal = document.getElementById('design-modal');
+            const designModalContent = document.getElementById('design-modal-content');
+            const openDesignModalButtons = document.querySelectorAll('.open-design-modal-button');
+            const closeDesignModalButton = document.getElementById('close-design-modal-button');
+
+            const openDesignModal = () => {
+                designModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    designModal.style.opacity = '1';
+                    designModalContent.style.transform = 'scale(1)';
+                }, 10);
+            };
+
+            const closeDesignModal = () => {
+                designModal.style.opacity = '0';
+                designModalContent.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    designModal.classList.add('hidden');
+                    if (pricingModal.classList.contains('hidden')) {
+                        document.body.style.overflow = '';
+                    }
+                }, 300);
+            };
+
+            openDesignModalButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openDesignModal();
+                });
+            });
+
+            closeDesignModalButton.addEventListener('click', closeDesignModal);
+            designModal.addEventListener('click', (e) => {
+                if (e.target === designModal) {
+                    closeDesignModal();
+                }
+            });
+
+             // Close modals with Escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!pricingModal.classList.contains('hidden')) {
+                        closePricingModal();
+                    }
+                    if (!designModal.classList.contains('hidden')) {
+                        closeDesignModal();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
